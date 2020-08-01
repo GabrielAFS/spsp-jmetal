@@ -5,6 +5,7 @@ import net.rodrigoamaral.algorithms.ms2mo.MS2MOBuilder;
 import net.rodrigoamaral.algorithms.nsgaii.NSGAIIDynamicBuilder;
 import net.rodrigoamaral.algorithms.smpso.SMPSOBuilder;
 import net.rodrigoamaral.algorithms.smpso.SMPSODynamicBuilder;
+import net.rodrigoamaral.algorithms.smpso.SMPSO_MABuilder;
 import net.rodrigoamaral.dspsp.solution.mutation.DSPSPRepairMutation;
 import net.rodrigoamaral.jmetal.util.evaluator.impl.SequentialSolutionListEvaluator;
 import org.uma.jmetal.algorithm.Algorithm;
@@ -125,7 +126,16 @@ public class AlgorithmAssembler {
                     .setRandomGenerator(new MersenneTwisterGenerator())
                     .setSolutionListEvaluator(new SequentialSolutionListEvaluator<DoubleSolution>())
                     .build();
-        }  else if ("MS2MO".equals(algorithmID.toUpperCase())) {
+        } else if("SMPSOMA".equals(algorithmID.toUpperCase())) {
+            BoundedArchive<DoubleSolution> archive = new CrowdingDistanceArchive<DoubleSolution>(populationSize);
+            return new SMPSO_MABuilder((DoubleProblem) problem, archive)
+                    .setMutation(mutation)
+                    .setMaxIterations(getMaxIterations())
+                    .setSwarmSize(populationSize)
+                    .setRandomGenerator(new MersenneTwisterGenerator())
+                    .setSolutionListEvaluator(new SequentialSolutionListEvaluator<DoubleSolution>())
+                    .build();
+        } else if ("MS2MO".equals(algorithmID.toUpperCase())) {
 
             List<ISwarm> swarms = createSwarms((DoubleProblem) problem, mutation, null);
 
