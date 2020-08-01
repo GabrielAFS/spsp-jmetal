@@ -64,7 +64,7 @@ public class SMPSO_MA extends SMPSO {
 
     @Override
     public String getName() {
-        return "SMPSO-MA";
+        return "SMPSOMA";
     }
 
     @Override
